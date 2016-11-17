@@ -41,3 +41,7 @@ https://gist.github.com/udacityandroid/41aca2eb9ff6942e769b
     }
 ```
 
+Αυτή τη στιγμή η εφαρμογή έχει οθόνη ρυθμίσεων αλλά είναι κενή! Πρέπει να προσθέσουμε ρυθμίσεις για τον χρήστη!
+
+1. Δημιουργούμε ένα νέο φάκελο ``xml`` μέσα στο ``res``. (/res/xml). Δεξί κλικ στον res -> new -> Android Resource Directory
+2. Δημιουργούμε ένα νέο αρχείο ``pref_general.xml`` μέσα στο folder ``xml``
