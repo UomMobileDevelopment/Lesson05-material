@@ -75,14 +75,14 @@ name=Theodore
 
 Για να εμφανιστεί η νέα μας ρύθμιση θα πρέπει να προσθέσουμε κώδικα στην κλάση ``SettingsActivity``.
 
-Μέθοδος ``onCreate``:
+Μέθοδος ``onCreate(Bundle savedInstanceState)``:
 
 ```
  @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);```
-        **```addPreferencesFromResource(R.xml.pref_general);```**
-        **```bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));```**
-```    }
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.pref_general);
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+}
 ```
 
