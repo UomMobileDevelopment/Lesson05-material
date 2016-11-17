@@ -44,4 +44,18 @@ https://gist.github.com/udacityandroid/41aca2eb9ff6942e769b
 Αυτή τη στιγμή η εφαρμογή έχει οθόνη ρυθμίσεων αλλά είναι κενή! Πρέπει να προσθέσουμε ρυθμίσεις για τον χρήστη!
 
 1. Δημιουργούμε ένα νέο φάκελο ``xml`` μέσα στο ``res``. (/res/xml). Δεξί κλικ στον res -> new -> Android Resource Directory
-2. Δημιουργούμε ένα νέο αρχείο ``pref_general.xml`` μέσα στο folder ``xml``
+2. Δημιουργούμε ένα νέο αρχείο ``pref_general.xml`` μέσα στο folder ``xml``. Δεξί κλικ στον xml -> new -> XML Resource File. 
+(Root Element = ```PreferenceScreen``` )
+3. Προσθέτουμε ένα Location preference, στο οποίο ο χρήστης θα εισάγει τον κωδικό πόλης, της οποίας τον καιρό θέλει να βλέπει: 
+```
+ <EditTextPreference
+        android:title="@string/pref_location_label"
+        android:key="@string/pref_location_key"
+        android:defaultValue="@string/pref_location_default"
+        android:inputType="text"
+        android:singleLine="true"
+        ></EditTextPreference>
+```
+
+
+
