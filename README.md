@@ -56,13 +56,33 @@ https://gist.github.com/udacityandroid/41aca2eb9ff6942e769b
         android:singleLine="true">
  </EditTextPreference>
 ```
-Το πεδίου ``android:title`` είναι το κείμενο που θα φαίνεται στον χρήστη, π.χ. το 'Display Name' ή το 'Ringtone' στην παραπάνω εικόνα. 
+Το πεδίο ``android:title`` είναι το κείμενο που θα φαίνεται στον χρήστη, π.χ. το **Display Name** ή το **Ringtone** στην παραπάνω εικόνα. 
+Το πεδίο ``android:key`` είναι ουσιαστικά το κλειδί του map στο οποίο αποθηκεύονται οι ρυθμίσεις στο SharedPreferences file. Για παράδειγμα φανταστείτε αυτό το Map κάπως έτσι
+__key__=__value__
+location=734077
+surname=Chaikalis
+name=Theodore
 
-Τα αντίστοιχα πεδία στο res/values/strings.xml: 
+Τα resources κειμένου για το το ``res/values/strings.xml`` είναι : 
+
 ```
 <string name="pref_location_label">Location</string>
 <string name="pref_location_key" translatable="false">location</string>
 <string name="pref_location_default" translatable="false">734077</string>
 ```
 
+##### Εμφάνιση ρυθμίσεων στην ειδική οθόνη
+
+Για να εμφανιστεί η νέα μας ρύθμιση θα πρέπει να προσθέσουμε κώδικα στην κλάση ``SettingsActivity``.
+
+Μέθοδος ``onCreate``:
+
+```
+ @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        **addPreferencesFromResource(R.xml.pref_general);
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));**
+    }
+```
 
