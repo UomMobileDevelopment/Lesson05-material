@@ -56,6 +56,7 @@ https://gist.github.com/udacityandroid/41aca2eb9ff6942e769b
         android:singleLine="true">
  </EditTextPreference>
 ```
+Το πεδίου ``android:title`` είναι το κείμενο που θα φαίνεται στον χρήστη, π.χ. το 'Display Name' ή το 'Ringtone' στην παραπάνω εικόνα. 
 
 Τα αντίστοιχα πεδία στο res/values/strings.xml: 
 ```
