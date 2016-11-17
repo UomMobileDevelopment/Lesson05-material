@@ -122,3 +122,9 @@ private void updateWeather() {
         updateWeather();
     }
 ```
+
+θα πρέπει επίσης να διορθώσουμε την δημιουργία του ArrayAdapter έτσι ώστε να μην αρχικοποιείται με Dummy Data, αλλά με ένα κενό ArrayList.
+
+ΆΣΚΗΣΗ:
+
+Προσθήκη μιας ακόμα επιλογής ρυθμίσεων για μετατροπή θερμοκρασίας απο Κελσίου (Weather API default), σε Fahrenheit
