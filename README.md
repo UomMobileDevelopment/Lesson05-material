@@ -53,9 +53,15 @@ https://gist.github.com/udacityandroid/41aca2eb9ff6942e769b
         android:key="@string/pref_location_key"
         android:defaultValue="@string/pref_location_default"
         android:inputType="text"
-        android:singleLine="true"
-        ></EditTextPreference>
+        android:singleLine="true">
+ </EditTextPreference>
 ```
 
+Τα αντίστοιχα πεδία στο res/values/strings.xml: 
+```
+<string name="pref_location_label">Location</string>
+<string name="pref_location_key" translatable="false">location</string>
+<string name="pref_location_default" translatable="false">734077</string>
+```
 
 
