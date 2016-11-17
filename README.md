@@ -88,6 +88,7 @@ name=Theodore
 
 Αφού έχουμε προσθέσει την κατάλληλη ρύθμιση, είμαστε πλέον σε θέση να διαβάζουμε την τιμή της ρύθμισης αυτής έτσι ώστε να καλούμε το Web Service του OpenWeatherMap API με τον επιθυμητό κωδικό πόλης και έτσι να βλέπουμε την επιθυμητή πρόβλεψη καιρού. 
 Για να γίνει αυτό θα πρέπει να διορθώσουμε τον τρόπο κλήσης του Web Service. Θυμίζουμε ότι η υλοποίηση αυτή βρίσκεται στην κλάση ForecastFragment. Πρέπει να:
+
 1. Δημιουργήσουμε μια νέα μέθοδο με όνομα ``updateWeather``
 2. Να διορθώσουμε τη μέθοδο ``onOptionsItemSelected(MenuItem item) ``
 
@@ -110,4 +111,14 @@ private void updateWeather() {
         return super.onOptionsItemSelected(item);
 }
 
+```
+
+Ας εκμεταλευτούμε την ευκαιρία της δημιουργίας της μεθόδου updateWeather για να προσθέσουμε την κλήση της **κατά τη δημιουργία** του Activity, έτσι ώστε να ξεκινάει η εφαρμογή με τα κανονικά και όχι με τα dummy δεδομένα. Στην ίδια κλάση (ForecastFragment) κάνουμε override τη μέθοδο ``onStart()``
+
+```
+@Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
 ```
