@@ -86,3 +86,21 @@ name=Theodore
 }
 ```
 
+Αφού έχουμε προσθέσει την κατάλληλη ρύθμιση, είμαστε πλέον σε θέση να διαβάζουμε την τιμή της ρύθμισης αυτής έτσι ώστε να καλούμε το Web Service του OpenWeatherMap API με τον επιθυμητό κωδικό πόλης και έτσι να βλέπουμε την επιθυμητή πρόβλεψη καιρού. 
+Για να γίνει αυτό θα πρέπει να διορθώσουμε τον τρόπο κλήσης του Web Service. Θυμίζουμε ότι η υλοποίηση αυτή βρίσκεται στην κλάση ForecastFragment. Πρέπει να επέμβουμε στη μέθοδο ``onOptionsItemSelected(MenuItem item) ``
+
+```
+@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_refresh){
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute(location);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+}
+```
