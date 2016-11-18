@@ -135,6 +135,8 @@ private void updateWeather() {
 
 1. Προσθέτουμε ένα νέο αρχείο ```detailfragment``` στον φάκελο /res/menu καθώς και τα κατάλληλα string resources. Το menu item αυτό θα εμφανίζεται σαν action στο επάνω taskbar και θα είναι ορατό συνεχώς.
 
+![Share activity](https://github.com/UomMobileDevelopment/Lesson05-material/blob/master/shareActivity-1.png)
+
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
@@ -219,5 +221,5 @@ if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT)){
 #### Είμαστε έτοιμοι! Ας κάνουμε το πρώτο δικό μας μήνυμα, Share  
 
 
-
+![Share activity](https://github.com/UomMobileDevelopment/Lesson05-material/blob/master/shareActivity-2.png)
 
