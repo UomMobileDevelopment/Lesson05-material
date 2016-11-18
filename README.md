@@ -128,3 +128,96 @@ private void updateWeather() {
 ΆΣΚΗΣΗ:
 
 Προσθήκη μιας ακόμα επιλογής ρυθμίσεων για μετατροπή θερμοκρασίας απο Κελσίου (Weather API default), σε Fahrenheit
+
+## Share Functionality !
+
+Θα προσθέσουμε λειτουργία sharing στην εφαρμογή μας εκμεταλευόμενοι τα Implicit Intents
+
+1. Προσθέτουμε ένα νέο αρχείο ```detailfragment``` στον φάκελο /res/menu καθώς και τα κατάλληλα string resources. Το menu item αυτό θα εμφανίζεται σαν action στο επάνω taskbar και θα είναι ορατό συνεχώς.
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"  >
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        app:showAsAction="always"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
+
+</menu>
+```
+
+2. Στη συνέχεια θα πρέπει να προσθέσουμε κώδικα στην inner κλάση ```DetailFragment``` (ίσως την έχετε ως ```PlaceholderFragment```) της κλάσης ```DetailActivity```. 
+Αναλυτικά
+
+3. Προσθέτουμε απαραίτητες ιδιότητες που θα μας χρειαστούν
+```
+ private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+        private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
+        private String forecastString;
+```
+
+4. Δηλώνουμε ότι το fragment αυτό έχει δικό του μενού.
+```
+ public DetailFragment() {
+            setHasOptionsMenu(true);
+        }
+```
+
+5. Αλλάζουμε τον κώδικα δημιουργίας της μεταβλητής forecastString, καθώς τώρα είναι ιδιότητα ορατή σε όλη την κλάση και όχι τοπική μεταβλητή. Αυτό το κάνουμε γιατί θα χρειαστούμε την τιμή του String και σε άλλη μέθοδο. Είναι το String της πρόβλεψης που θα περάσουμε σαν μήνυμα στον ShareProvider. Είναι αυτό το κείμενο που τελικά θα γίνει share.
+```
+if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT)){
+                forecastString = intent.getStringExtra(Intent.EXTRA_TEXT);
+                TextView detailText = (TextView)rootView.findViewById(R.id.detail_text);
+                detailText.setText(forecastString);
+            }
+```
+
+6. Δημιουργούμε τη βοηθητική μέθοδο ``createShareForacastIntent``, η οποία αναλαμβάνει να δημιουργήσει το Implicit Intent και να το γεμίσει με τα απαραίτητα δεδομένα.
+```
+ private Intent createShareForacastIntent(){
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            //clear activity and not put it on the activity stack.
+            //If this flag is not present, then after sharing the screen will return to the sharing app
+            //and not in our app!!!
+            //FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET is DEPRECATED, FLAG_ACTIVITY_NEW_DOCUMENT should be used instead
+            // shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, forecastString + FORECAST_SHARE_HASHTAG);
+            Log.e(LOG_TAG, "share intent created");
+            Log.e(LOG_TAG, "string extra = "+shareIntent.getStringExtra(Intent.EXTRA_TEXT));
+
+            return shareIntent;
+        }
+```
+
+7. Επικαλύπτουμε (Override) τη μέθοδο ``onCreateOptionsMenu`` έτσι ώστε να δηλώσουμε τι θέλουμε να γίνεται στη δημιουργία του menu επιλογών. Αυτό που δηλώνουμε είναι οτι θέλουμε στο πάτημα του SHARE εικονιδίου να ξεκινάει ο Share Action Provider του λειτουργικού στο οποίο έχουμε περάσει το Intent (``.setShareIntent(createShareForacastIntent());``) με τις χρήσιμες πληροφορίες που θέλουμε να γίνουν Share. 
+```
+@Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            //Inflate the menu, this adds items to the action bar if it is not present
+            inflater.inflate(R.menu.detailfragment, menu);
+
+            MenuItem menuItem = menu.findItem(R.id.action_share);
+
+            ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+            if(shareActionProvider != null){
+                shareActionProvider.setShareIntent(createShareForacastIntent());
+                Log.e(LOG_TAG, "intent set to share action provider ");
+            }
+            else{
+                Log.e(LOG_TAG, "Share action provider is null?");
+            }
+            super.onCreateOptionsMenu(menu, inflater);
+        }
+```
+
+#### Είμαστε έτοιμη! Ας κάνουμε το πρώτο δικό μας μήνυμα, Share  
+
+
+
+
