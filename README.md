@@ -127,9 +127,60 @@ private void updateWeather() {
 
 θα πρέπει επίσης να διορθώσουμε την δημιουργία του ArrayAdapter έτσι ώστε να μην αρχικοποιείται με Dummy Data, αλλά με ένα κενό ArrayList.
 
-ΆΣΚΗΣΗ:
+### Δεύτερη προσθήκη στις ρυθμίσεις:
+ Προσθήκη μιας ακόμα επιλογής ρυθμίσεων για μετατροπή θερμοκρασίας απο Κελσίου (Weather API default), σε Fahrenheit.
+ 
+ Αρχικά προσθέτω τα κατάλληλα Strings:
+ 
+ ```
+     <string name="pref_temp_units_label">Temperature Units</string>
+    <string name="pref_temp_units_key" translatable="false">tempunit</string>
+    <string name="pref_temp_units_celcius" translatable="false">C</string>
+    <string name="pref_temp_units_fahren" translatable="false">F</string>
 
-Προσθήκη μιας ακόμα επιλογής ρυθμίσεων για μετατροπή θερμοκρασίας απο Κελσίου (Weather API default), σε Fahrenheit
+    <string-array name="pref_temp_units_entries">
+        <item>Celcius (Metric)</item>
+        <item>Fahrenheit (Imperial)</item>
+    </string-array>
+
+    <string-array name="pref_temp_units_entryValues">
+        <item>C</item>
+        <item>F</item>
+    </string-array>
+    
+ ```
+ 
+ Έπειτα προσθέτω μία ακόμα επιλογή τύπου ```List Preference``` στo αρχείο pref_general.xml
+
+```
+
+    <ListPreference
+        android:key="@string/pref_temp_units_key"
+        android:defaultValue="@string/pref_temp_units_celcius"
+        android:title="@string/pref_temp_units_label"
+        android:entries="@array/pref_temp_units_entries"
+        android:entryValues="@array/pref_temp_units_entryValues"
+        >
+    </ListPreference>
+    
+```
+
+Τώρα θα πρέπει να κάνω τις κατάλληλες αλλαγές στη μέθοδο ForecastFragment.getWeatherDataFromJson() έτσι ώστε να "παίρνει" τη μονάδα μετατροπής θερμοκρασίας απο τις ρυθμίσεις:
+
+```
+//...
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String tempUnit = prefs.getString(getString(R.string.pref_temp_units_key),getString(R.string.pref_temp_units_celcius));
+//....
+//....
+                double high = temperatureObject.getDouble(OWM_MAX);
+                double low = temperatureObject.getDouble(OWM_MIN);
+                highAndLow = formatHighLows(high, low, tempUnit);
+//....
+```
+
+ΕΤΟΙΜΟ!
+
 
 ## Share Functionality !
 
